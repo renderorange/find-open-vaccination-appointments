@@ -14,6 +14,7 @@ DESCRIPTION
 
 SYNOPSIS
      find-open-vaccination-appointments [--city <houston>] [--city <cypress>]
+                                        [--respect] [--no-respect]
                                         [--help]
 
 OPTIONS
@@ -22,8 +23,10 @@ OPTIONS
 
         multiple city options may be defined
 
-    --respectful
-        get the json every 20 seconds instead of every 5
+    --respect --no-respect
+        get the data every 20 seconds instead of every 5
+
+        defaults to true. can be disabled with --no-respect
 
     --help
         print this dialogue

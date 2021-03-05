@@ -13,11 +13,13 @@ use Test::Deep::NoTest;
 use List::Util         ();
 use Data::Dumper       ();
 
-my %opt = ();
+my %opt = (
+    respect => 1,
+);
 Getopt::Long::GetOptions(
     \%opt,
     'city=s@',
-    'respectful',
+    'respect!',
     'help',
 ) || Pod::Usage::pod2usage(1);
 
@@ -38,7 +40,7 @@ while (1) {
     };
 
     check_available();
-    sleep ( $opt{respectful} ? 20 : 5 );
+    sleep ( $opt{respect} ? 20 : 5 );
 }
 
 sub logger {
@@ -107,7 +109,7 @@ This script is a rewrite of @georgebohnisch's nodejs script, in Perl.
 =head1 SYNOPSIS
 
  find-open-vaccination-appointments [--city <houston>] [--city <cypress>]
-                                    [--respectful]
+                                    [--respect] [--no-respect]
                                     [--help]
 
 =head1 OPTIONS
@@ -120,9 +122,11 @@ city to get locations from
 
 multiple city options may be defined
 
-=item --respectful
+=item --respect --no-respect
 
 get the data every 20 seconds instead of every 5
+
+defaults to true.  can be disabled with --no-respect
 
 =item --help
 
