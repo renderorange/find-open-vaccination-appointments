@@ -1,0 +1,148 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+
+use Getopt::Long       ();
+use Pod::Usage         ();
+
+use HTTP::Tiny         ();
+use Try::Tiny;
+use JSON::Tiny         ();
+use Test::Deep::NoTest;
+use List::Util         ();
+use Data::Dumper       ();
+
+my %opt = ();
+Getopt::Long::GetOptions(
+    \%opt,
+    'city=s@',
+    'help',
+) || Pod::Usage::pod2usage(1);
+
+Pod::Usage::pod2usage(0) if $opt{help};
+Pod::Usage::pod2usage(1) unless $opt{city};
+
+my $locations_cache = [];
+
+my $exit = 0;
+$SIG{INT} = sub { $exit = 1 };
+
+logger( 'info', 'ctrl+c to exit' );
+
+while (1) {
+    if ($exit) {
+        logger( 'info', 'exiting' );
+        exit;
+    };
+
+    check_available();
+    sleep 1;
+}
+
+sub logger {
+    my $level  = shift;
+    my $string = shift;
+
+    $string = "[$level][" . time . "] " . "$string\n";
+
+    if ( $level eq 'error' ) {
+        die $string;
+    }
+
+    print $string;
+
+    return;
+}
+
+sub check_available {
+    my $response = HTTP::Tiny->new->get( 'https://heb-ecom-covid-vaccine.hebdigital-prd.com/vaccine_locations.json' );
+
+    logger( 'error', 'fetch locations: ' . $response->{status} . ' ' . $response->{reason} )
+        unless $response->{success};
+
+    my $data = try {
+        return JSON::Tiny::decode_json( $response->{content} );
+    }
+    catch {
+        my $exception = $_;
+        logger( 'error', "decode JSON: $exception" );
+    };
+
+    logger( 'error', 'locations not found' )
+        unless $data->{locations};
+
+    return if eq_deeply( $data->{locations}, $locations_cache );
+
+    logger( 'info', 'availability data updated' );
+
+    $locations_cache = $data->{locations};
+
+    foreach my $location ( @{$data->{locations}} ) {
+        next unless $location->{openAppointmentSlots};
+        next if List::Util::none { uc $_ eq $location->{city} } @{$opt{city}};
+
+        logger( 'info', 'availability found:' );
+        print Data::Dumper::Dumper( $location );
+    }
+}
+
+__END__
+
+=pod
+
+=head1 NAME
+
+find-open-vaccination-appointments - find open vaccination appointments at heb locations
+
+=head1 DESCRIPTION
+
+C<find-open-vaccination-appointments> is a script to check heb for open vaccination appointment slots in Texas.
+
+This script is a rewrite of @georgebohnisch's nodejs script, in Perl.
+
+=head1 SYNOPSIS
+
+ find-open-vaccination-appointments [--city <houston>] [--city <cypress>]
+                                    [--help]
+
+=head1 OPTIONS
+
+=over
+
+=item --city
+
+city to get locations from
+
+multiple city options may be defined
+
+=item --help
+
+print this dialogue
+
+=back
+
+=head1 DEPENDENCIES
+
+=over
+
+=item L<Getopt::Long>
+
+=item L<Pod::Usage>
+
+=item L<HTTP::Tiny>
+
+=item L<Try::Tiny>
+
+=item L<JSON::Tiny>
+
+=item L<Test::Deep::NoTest>
+
+=item L<List::Util>
+
+=item L<Data::Dumper>
+
+=back
+
+=cut
+
