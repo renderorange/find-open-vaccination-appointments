@@ -1,20 +1,23 @@
 NAME
     find-open-vaccination-appointments - find open vaccination appointments
-    at heb locations
+    at HEB locations
 
 DESCRIPTION
-    "find-open-vaccination-appointments" is a script to check heb for open
+    "find-open-vaccination-appointments" is a script to check HEB for open
     vaccination appointment slots in Texas.
 
     "find-open-vaccination-appointments" downloads the availability data
-    from heb every 5 seconds, then checks the locations you define for
+    from HEB every 20 seconds, then checks the wanted locations for
     available appointment slots.
+
+    Location, signup URL, and number of availability appointment times and
+    slots, are output when an availability is found.
 
     This script is a rewrite of @georgebohnisch's nodejs script, in Perl.
 
 SYNOPSIS
      find-open-vaccination-appointments [--city <houston>] [--city <cypress>]
-                                        [--respect] [--no-respect]
+                                        [--no-respect]
                                         [--help]
 
 OPTIONS
@@ -23,10 +26,8 @@ OPTIONS
 
         multiple city options may be defined
 
-    --respect --no-respect
-        get the data every 20 seconds instead of every 5
-
-        defaults to true. can be disabled with --no-respect
+    --no-respect
+        get the data every 5 seconds instead of every 20
 
     --help
         print this dialogue
