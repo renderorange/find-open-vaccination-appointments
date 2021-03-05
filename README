@@ -1,0 +1,33 @@
+NAME
+    find-open-vaccination-appointments - find open vaccination appointments
+    at heb locations
+
+DESCRIPTION
+    "find-open-vaccination-appointments" is a script to check heb for open
+    vaccination appointment slots in Texas.
+
+    This script is a rewrite of @georgebohnisch's nodejs script, in Perl.
+
+SYNOPSIS
+     find-open-vaccination-appointments [--city <houston>] [--city <cypress>]
+                                        [--help]
+
+OPTIONS
+    --city
+        city to get locations from
+
+        multiple city options may be defined
+
+    --help
+        print this dialogue
+
+DEPENDENCIES
+    Getopt::Long
+    Pod::Usage
+    HTTP::Tiny
+    Try::Tiny
+    JSON::Tiny
+    Test::Deep::NoTest
+    List::Util
+    Data::Dumper
+
