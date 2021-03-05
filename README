@@ -32,6 +32,59 @@ OPTIONS
     --help
         print this dialogue
 
+EXAMPLES
+    check for slots in 2 cities every 5 seconds
+         $ ./find-open-vaccination-appointments --city houston --city cypress --no-respect
+         [info][1614970316] ctrl+c to exit
+         [info][1614970316] availability data updated
+         [info][1614970316] availability found:
+         $VAR1 = {
+                   'city' => 'HOUSTON',
+                   'latitude' => '29.92325',
+                   'longitude' => '-95.19697',
+                   'name' => 'Summerwood Market H-E-B',
+                   'openAppointmentSlots' => 1,
+                   'openTimeslots' => 1,
+                   'slotDetails' => [
+                                      {
+                                        'manufacturer' => 'Moderna',
+                                        'openAppointmentSlots' => 1,
+                                        'openTimeslots' => 1
+                                      }
+                                    ],
+                   'state' => 'TX',
+                   'storeNumber' => 614,
+                   'street' => '12680 W.LAKE HOUSTON PKWY 8',
+                   'type' => 'store',
+                   'url' => 'https://heb.secure.force.com/FlexibleScheduler/FSAppointment?event_ID=[removed]',
+                   'zip' => '77044-6087'
+                 };
+         [info][1614970316] availability found:
+         $VAR1 = {
+                   'city' => 'CYPRESS',
+                   'latitude' => '29.9925',
+                   'longitude' => '-95.74599',
+                   'name' => 'Fairfield Market H-E-B',
+                   'openAppointmentSlots' => 1,
+                   'openTimeslots' => 1,
+                   'slotDetails' => [
+                                      {
+                                        'manufacturer' => 'Moderna',
+                                        'openAppointmentSlots' => 1,
+                                        'openTimeslots' => 1
+                                      }
+                                    ],
+                   'state' => 'TX',
+                   'storeNumber' => 656,
+                   'street' => '28550 US- 290',
+                   'type' => 'store',
+                   'url' => 'https://heb.secure.force.com/FlexibleScheduler/FSAppointment?event_ID=[removed]',
+                   'zip' => '77433-4288'
+                 };
+         [info][1614970364] availability data updated
+         [info][1614970428] availability data updated
+         [info][1614970491] availability data updated
+
 DEPENDENCIES
     Getopt::Long
     Pod::Usage
