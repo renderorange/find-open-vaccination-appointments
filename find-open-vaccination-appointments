@@ -17,6 +17,7 @@ my %opt = ();
 Getopt::Long::GetOptions(
     \%opt,
     'city=s@',
+    'respectful',
     'help',
 ) || Pod::Usage::pod2usage(1);
 
@@ -37,7 +38,7 @@ while (1) {
     };
 
     check_available();
-    sleep 1;
+    sleep ( $opt{respectful} ? 20 : 5 );
 }
 
 sub logger {
@@ -99,11 +100,14 @@ find-open-vaccination-appointments - find open vaccination appointments at heb l
 
 C<find-open-vaccination-appointments> is a script to check heb for open vaccination appointment slots in Texas.
 
+C<find-open-vaccination-appointments> downloads the availability data from heb every 5 seconds, then checks the locations you define for available appointment slots.
+
 This script is a rewrite of @georgebohnisch's nodejs script, in Perl.
 
 =head1 SYNOPSIS
 
  find-open-vaccination-appointments [--city <houston>] [--city <cypress>]
+                                    [--respectful]
                                     [--help]
 
 =head1 OPTIONS
@@ -115,6 +119,10 @@ This script is a rewrite of @georgebohnisch's nodejs script, in Perl.
 city to get locations from
 
 multiple city options may be defined
+
+=item --respectful
+
+get the data every 20 seconds instead of every 5
 
 =item --help
 
