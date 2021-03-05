@@ -39,6 +39,5 @@ DEPENDENCIES
     Try::Tiny
     JSON::Tiny
     Test::Deep::NoTest
-    List::Util
     Data::Dumper
 

@@ -10,7 +10,6 @@ use HTTP::Tiny         ();
 use Try::Tiny;
 use JSON::Tiny         ();
 use Test::Deep::NoTest;
-use List::Util         ();
 use Data::Dumper       ();
 
 my %opt = (
@@ -82,7 +81,7 @@ sub check_available {
     $locations_cache = $data->{locations};
 
     foreach my $location ( @{$data->{locations}} ) {
-        next if List::Util::none { uc $_ eq $location->{city} } @{$opt{city}};
+        next unless grep { uc $_ eq $location->{city} } @{$opt{city}};
         next unless $location->{openAppointmentSlots};
 
         logger( 'info', 'availability found:' );
@@ -149,8 +148,6 @@ print this dialogue
 =item L<JSON::Tiny>
 
 =item L<Test::Deep::NoTest>
-
-=item L<List::Util>
 
 =item L<Data::Dumper>
 
