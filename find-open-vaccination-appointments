@@ -80,8 +80,8 @@ sub check_available {
     $locations_cache = $data->{locations};
 
     foreach my $location ( @{$data->{locations}} ) {
-        next unless $location->{openAppointmentSlots};
         next if List::Util::none { uc $_ eq $location->{city} } @{$opt{city}};
+        next unless $location->{openAppointmentSlots};
 
         logger( 'info', 'availability found:' );
         print Data::Dumper::Dumper( $location );
