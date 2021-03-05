@@ -12,6 +12,8 @@ use JSON::Tiny         ();
 use Test::Deep::NoTest;
 use Data::Dumper       ();
 
+$Data::Dumper::Sortkeys = 1;
+
 my %opt = (
     respect => 1,
 );
