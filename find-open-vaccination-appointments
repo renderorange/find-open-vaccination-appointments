@@ -48,7 +48,7 @@ sub logger {
     my $level  = shift;
     my $string = shift;
 
-    $string = "[$level][" . time . "] " . "$string\n";
+    $string = "[" . time . "][$level] " . "$string\n";
 
     if ( $level eq 'error' ) {
         die $string;
