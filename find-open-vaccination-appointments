@@ -101,11 +101,15 @@ find-open-vaccination-appointments - find open vaccination appointments at HEB l
 
 =head1 DESCRIPTION
 
-C<find-open-vaccination-appointments> is a script to check HEB for open vaccination appointment slots in Texas.
+C<find-open-vaccination-appointments> is a script to check HEB for open
+vaccination appointment slots in Texas.
 
-C<find-open-vaccination-appointments> downloads the availability data from HEB every 20 seconds, then checks the wanted locations for available appointment slots.
+C<find-open-vaccination-appointments> downloads the availability data
+from HEB every 20 seconds, then checks the wanted locations for
+available appointment slots.
 
-Location, signup URL, and number of availability appointment times and slots, are output when an availability is found.
+Location, signup URL, and number of availability appointment times and
+slots, are output when an availability is found.
 
 This script is a rewrite of @georgebohnisch's nodejs script, in Perl.
 
@@ -142,9 +146,9 @@ print this dialogue
 =item check for slots in 2 cities every 5 seconds
 
  $ ./find-open-vaccination-appointments --city houston --city cypress --no-respect
- [info][1614970316] ctrl+c to exit
- [info][1614970316] new appointment data available
- [info][1614970316] open appointment slot found:
+ [1614970316][info] ctrl+c to exit
+ [1614970316][info] new appointment data available
+ [1614970316][info] open appointment slot found:
  $VAR1 = {
            'city' => 'HOUSTON',
            'latitude' => '29.92325',
@@ -166,7 +170,7 @@ print this dialogue
            'url' => 'https://heb.secure.force.com/FlexibleScheduler/FSAppointment?event_ID=[removed]',
            'zip' => '77044-6087'
          };
- [info][1614970316] open appointment slot found:
+ [1614970316][info] open appointment slot found:
  $VAR1 = {
            'city' => 'CYPRESS',
            'latitude' => '29.9925',
@@ -188,9 +192,9 @@ print this dialogue
            'url' => 'https://heb.secure.force.com/FlexibleScheduler/FSAppointment?event_ID=[removed]',
            'zip' => '77433-4288'
          };
- [info][1614970364] new appointment data available
- [info][1614970428] new appointment data available
- [info][1614970491] new appointment data available
+ [1614970364][info] new appointment data available
+ [1614970428][info] new appointment data available
+ [1614970491][info] new appointment data available
 
 =back
 
